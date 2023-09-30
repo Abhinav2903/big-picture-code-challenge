@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Finder</title>
+  </head>
+  <body>
+    <h1>Book Search</h1>
+
+    <!-- Search Form for Book ISBN-->
+    <form action="{{ url_for('search_by_isbn', isbn=isbn) }}" method="get">
+      <label for="search">Search for books by ISBN:</label>
+      <input
+        type="text"
+        id="search"
+        name="isbn"
+        placeholder="Enter book ISBN"
+      />
+      <button type="submit">Search</button>
+    </form>
+
+<!-- Results Section (You can display search results here) -->
+<div id="search-results">
+    {% if "error" in book_details %}
+    <p>{{ book_details["error"] }}</p>
+    {% else %}
+    <p>
+        {% for book_detail in book_details %}
+        {%include 'displayitem.html'%}
+        {% endfor %}
+    </p>
+    {% endif %}
+  </div>
+  
+  </body>
+</html>
