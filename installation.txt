@@ -1,0 +1,95 @@
+1. Introduction
+Purpose
+
+The Flask Library App is a simple web application for managing a library of books. It allows users to add new books to the library and retrieve the list of available books. 
+The application is built using Flask as the web framework and SQLAlchemy to interact with a MySQL 8.0 database.
+Technologies Used
+
+    Python 3.x
+    Flask (web framework)
+    SQLAlchemy (database ORM)
+    MySQL 8.0
+    Flask-SQLAlchemy (Flask extension for database integration)
+
+2. Installation
+Prerequisites
+
+Before you can run the Flask Library App, ensure you have the following installed:
+
+    Python 3.x: Download and install Python from python.org.
+    Flask: Install Flask using pip:
+
+        pip install Flask
+
+SQLAlchemy: Install SQLAlchemy using pip:
+
+    pip install SQLAlchemy
+
+pymsql and mysql: Install using pip
+    pip install mysqlclient
+    pip install pymysql
+
+MySQL 8.0: Install and set up MySQL 8.0 on your system. You may use the official MySQL installer.
+
+Navigate to the project directory:
+
+Create a virtual environment (optional but recommended):
+
+python -m venv venv
+
+Activate the virtual environment:
+
+    On Windows:
+
+venv\Scripts\activate
+
+On macOS and Linux:
+
+bash
+
+        source venv/bin/activate
+
+Database Configuration
+    Create database from sql workbench or my sql server
+    
+    Open the config.py,app.py & database.py file and set the database URI:
+    //config.py(not required as not being used)
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:abhi2903@localhost:3306/flaskdatabase?charset=utf8mb4'
+    //app.py
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@127.0.0.1:3306/flaskdatabase?charset=utf8mb4'
+    //database.py
+    DB_URL = "mysql+pymysql://username:password@127.0.0.1:3306/flaskdatabase?charset=utf8mb4"
+
+Replace username and password with your MySQL credentials, and flaskdatabase with your desired database name.
+
+Run the following commands to create the tables and Sample entry :
+    python database.py
+
+3. Project Structure
+
+
+4. Running the Application
+
+To start the Flask development server, run the following command from the project root directory:
+
+    Flask run
+
+The application will be accessible at http://127.0.0.1:5000.
+
+5. Actions on the app
+    After the app start you can see a form asking for ISBN number enter the appropriate isbn number and hit the Search button a get call willl be made and you will get the desired results
+        
+        ex:- GET http://127.0.0.1:5000/isbn/?isbn=0226476766
+    
+    After clicking the save button a post call will be made and the book will be saved in the database 
+        ex:- POST http://127.0.0.1:5000/books
+            body :- {
+                    "author": "Frederick G. Crane",
+                    "cover": "https://covers.openlibrary.org/b/id/9572599-M.jpg",
+                    "isbn": "9781412953467",
+                    "summary": "concepts and applications for new ventures",
+                    "title": "Marketing for entrepreneurs"
+                    }
+    
+    After clicking on the get books button a get call will be made and all the books in the database will be retrived and shown  
+         ex:- GET http://127.0.0.1:5000/books
