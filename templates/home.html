@@ -1,3 +1,5 @@
+<!-- The first Page of the Library-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,7 +22,7 @@
       <button type="submit">Search</button>
     </form>
 
-<!-- Results Section (You can display search results here) -->
+<!-- Results Section (display search results here) -->
 <div id="search-results">
     {% if "error" in book_details %}
     <p>{{ book_details["error"] }}</p>
@@ -32,6 +34,10 @@
     </p>
     {% endif %}
   </div>
+  <form id="getBooksForm" method="get" action="/books" >
+    <button type="submit" id="getBooksButton">Get Books</button>
+  </form>
   
+
   </body>
 </html>

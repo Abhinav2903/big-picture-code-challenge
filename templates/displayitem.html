@@ -8,21 +8,68 @@
   <body>
     <div class="mb-16 border-bottom row">
       <div>
-        <h4>{{ book_detail['title'] }}</h4>
+        <h4>Title: {{ book_detail['title'] }}</h4>
       </div>
       <div>
-        <h4>{{ book_detail['authors'] }}</h4>
+        <h4>Author: {{ book_detail['authors'] }}</h4>
       </div>
       <div>
-        <h4>{{ book_detail['cover'] }}</h4>
+        <h4>Cover: {{ book_detail['cover'] }}</h4>
       </div>
       <div>
-        <h4>{{ book_detail['summary'] }}</h4>
+        <h4>Summary: {{ book_detail['summary'] }}</h4>
       </div>
 
       <div>
-        <button>Save</button>
+        <h4>ISBN: {{ isbn }}</h4>
+      </div>
+    
+      <div>
+        <form id="bookForm" method="POST" action="/books">
+          <!-- Hidden fields to pass book details to the POST request -->
+          <input type="hidden" name="isbn" value="{{ isbn }}">
+          <input type="hidden" name="title" value="{{ book_detail['title'] }}">
+          <input type="hidden" name="author" value="{{ book_detail['authors'] }}">
+          <input type="hidden" name="cover" value="{{ book_detail['cover'] }}">
+          <input type="hidden" name="summary" value="{{ book_detail['summary'] }}">
+
+    
+          <!-- Add the "Save" button inside the form with type="submit" -->
+          <button type="submit">Save</button>
+        </form>
       </div>
     </div>
+    <script>
+      // JavaScript code to send a JSON request with the form data
+      document.getElementById('bookForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          
+          // Collect the form data
+          const formData = {
+              isbn:'{{isbn}}',
+              title: document.querySelector('input[name="title"]').value,
+              author: document.querySelector('input[name="author"]').value,
+              cover: document.querySelector('input[name="cover"]').value,
+              summary: document.querySelector('input[name="summary"]').value
+          };
+          console.log('{{isbn}}')
+          // Send the data as JSON with the Content-Type header set to application/json
+          fetch('/books', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formData)
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Handle the response from the server
+              console.log(data);
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      });
+  </script>
   </body>
 </html>
